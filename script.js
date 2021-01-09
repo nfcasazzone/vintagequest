@@ -1,3 +1,9 @@
+/*
+Vintage Quest Videogame
+
+Authors: Nick Casazzone, Matthew Avallone
+*/
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -98,7 +104,6 @@ function animate_player(e){
               playerFrameX++;
             else playerFrameX = 0;
           break;
-
 
         case "ArrowLeft": //left
           playerFrameY = 1; //set left
