@@ -74,61 +74,59 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 function animate_player(e){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  //characters[0].draw();
-  //characters[0].update();
-
-//if (player_flip =0) {
-  
-//}
-//if (player_flip =1) drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
   if(e == undefined){
     return
   }
   switch(e.code) {
         case "ArrowUp": //up
-          playerFrameY = 0; //set up facing link  on link sprite sheet
+          playerFrameY = 0; //set up facing link on link sprite sheet
+
           if(playerY >= 0){ 
             playerY -= playerSpeed;
             if(playerFrameX<7) playerFrameX++;
             else playerFrameX = 0;
           }
           else playerY = 0;
+
           drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
 
         case "ArrowDown": //down
           playerFrameY = 2; //set down
+
           if(playerY < canvas.height - playerHeight)
             playerY += playerSpeed;
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
+
           drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
 
         case "ArrowLeft": //left
           playerFrameY = 1; //set left
+
           if(playerX >= 0)
             playerX -= playerSpeed;
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
+
           drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
 
         case "ArrowRight": //right
           playerFrameY = 0; //set left
-          //drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
-          //tx.scale(1,-1);
+
           if(playerX < canvas.width - playerWidth)
             playerX += playerSpeed;
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
+
           drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
   }
-
 }
 
 document.addEventListener('keydown', animate_player);
