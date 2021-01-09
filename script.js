@@ -129,11 +129,17 @@ function animate_player(e){
   }
 }
 
-document.addEventListener('keydown', animate_player);
-//window.onload = setInterval(animate_player, 1000);
+// On startup, show player on screen
+window.addEventListener("load", function(){
+  drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight)
+});
 
+// On keystroke, perform player action
+document.addEventListener('keydown', animate_player);
+
+// On window resize, update canvas dimensions and maintain player position
 window.addEventListener('resize', function(){
   canvas.height = window.innerHeight;
   canvas.width = window.innerWidth;
-
+  drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight)
 })
