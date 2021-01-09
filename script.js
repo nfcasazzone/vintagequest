@@ -78,7 +78,7 @@ function animate_player(e){
   //characters[0].update();
 
 //if (player_flip =0) {
-  drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
+  
 //}
 //if (player_flip =1) drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
   if(e == undefined){
@@ -93,6 +93,7 @@ function animate_player(e){
             else playerFrameX = 0;
           }
           else playerY = 0;
+          drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
 
         case "ArrowDown": //down
@@ -102,6 +103,7 @@ function animate_player(e){
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
+          drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
 
         case "ArrowLeft": //left
@@ -111,6 +113,7 @@ function animate_player(e){
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
+          drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
 
         case "ArrowRight": //right
@@ -122,10 +125,11 @@ function animate_player(e){
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
+          drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           break;
   }
-}
 
+}
 
 document.addEventListener('keydown', animate_player);
 //window.onload = setInterval(animate_player, 1000);
