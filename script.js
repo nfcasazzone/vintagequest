@@ -1,5 +1,5 @@
 /*
-Vintage Quest Videogame
+Vintage Quest Video Game
 
 Authors: Nick Casazzone, Matthew Avallone
 */
@@ -81,7 +81,6 @@ function animate_player(e){
   drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
 //}
 //if (player_flip =1) drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
-  console.log(e.code)
   if(e == undefined){
     return
   }
