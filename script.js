@@ -87,12 +87,12 @@ function animate_player(e){
   switch(e.code) {
         case "ArrowUp": //up
           playerFrameY = 0; //set up facing link  on link sprite sheet
-          if(playerY < canvas.height - playerHeight){ //NEED TO FIX UP BOUNDARY
+          if(playerY >= 0){ 
             playerY -= playerSpeed;
             if(playerFrameX<7) playerFrameX++;
             else playerFrameX = 0;
           }
-          else playerY = playerHeight;
+          else playerY = 0;
           break;
 
         case "ArrowDown": //down
@@ -106,7 +106,7 @@ function animate_player(e){
 
         case "ArrowLeft": //left
           playerFrameY = 1; //set left
-          if(playerX < canvas.width - playerWidth)
+          if(playerX >= 0)
             playerX -= playerSpeed;
             if(playerFrameX<7)
               playerFrameX++;
