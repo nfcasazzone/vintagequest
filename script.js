@@ -13,11 +13,11 @@ canvas.width = window.innerWidth;
 // load img
 const  images = [];
 images.player = new Image();
-images.player.src = "characters/walking_master.png"; // link walking is 306x100
+images.player.src = "characters/link/walking_master.png"; // link walking is 306x100
 
 
 images.player_right = new Image();
-images.player_right.src = "characters/walking_right.png";
+images.player_right.src = "characters/link/walking_right.png";
 images.push(images.player_right);
 
 /*
