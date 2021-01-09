@@ -75,9 +75,12 @@ function animate_player(e){
   drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
 //}
 //if (player_flip =1) drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
-
-  switch(e.keyCode) {
-        case 38: //up
+  console.log(e.code)
+  if(e == undefined){
+    return
+  }
+  switch(e.code) {
+        case "ArrowUp": //up
           playerFrameY = 0; //set up facing link  on link sprite sheet
           if(playerY < canvas.height - playerHeight){ //NEED TO FIX UP BOUNDARY
             playerY -= playerSpeed;
@@ -85,28 +88,28 @@ function animate_player(e){
             else playerFrameX = 0;
           }
           else playerY = playerHeight;
-          break
+          break;
 
-        case 40: //down
+        case "ArrowDown": //down
           playerFrameY = 2; //set down
           if(playerY < canvas.height - playerHeight)
             playerY += playerSpeed;
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
-          break
+          break;
 
 
-        case 37: //left
+        case "ArrowLeft": //left
           playerFrameY = 1; //set left
           if(playerX < canvas.width - playerWidth)
             playerX -= playerSpeed;
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
-          break
+          break;
 
-        case 39: //right
+        case "ArrowRight": //right
           playerFrameY = 0; //set left
           //drawSprite(images.player_right, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight);
           //tx.scale(1,-1);
@@ -115,16 +118,13 @@ function animate_player(e){
             if(playerFrameX<7)
               playerFrameX++;
             else playerFrameX = 0;
-          break
-      }
+          break;
+  }
 }
 
 
-
-
-window.onload = setInterval(animate_player, 1000/150);
-
-document.addEventListener('keydown', animate_player)
+document.addEventListener('keydown', animate_player);
+//window.onload = setInterval(animate_player, 1000);
 
 window.addEventListener('resize', function(){
   canvas.height = window.innerHeight;
