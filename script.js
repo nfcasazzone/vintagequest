@@ -50,8 +50,8 @@ class Character {
     }
 
     switch(e.code) {
-        case "ArrowUp": //up
-          this.frameY = 0; //set up facing link on link sprite sheet
+        case "ArrowUp":
+          this.frameY = 0; //set up
 
           if(this.y >= 0){ 
             this.y -= this.speed;
@@ -63,7 +63,7 @@ class Character {
           this.draw(this.walking[0], this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
           break;
 
-        case "ArrowDown": //down
+        case "ArrowDown":
           this.frameY = 2; //set down
 
           if(this.y < canvas.height - this.height)
@@ -75,7 +75,7 @@ class Character {
           this.draw(this.walking[0], this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
           break;
 
-        case "ArrowLeft": //left
+        case "ArrowLeft":
           this.frameY = 1; //set left
 
           if(this.x >= 0)
@@ -87,8 +87,8 @@ class Character {
           this.draw(this.walking[0], this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height);
           break;
 
-        case "ArrowRight": //right
-          this.frameY = 0; //set left
+        case "ArrowRight":
+          this.frameY = 0; //set right
 
           if(this.x < canvas.width - this.width)
             this.x += this.speed;
