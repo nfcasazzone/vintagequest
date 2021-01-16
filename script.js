@@ -10,11 +10,17 @@ const ctx = canvas.getContext('2d');
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
-// ***ACTION LIST***
+
+// ***ACTION LIST*** Add any new character actions here
 const WALK_LEFT = "walk left";
 const WALK_RIGHT = "walk right";
 const WALK_UP = "walk up";
 const WALK_DOWN = "walk down";
+const RUN = "run";
+const IDLE = "idle";
+const MELEE = "melee";
+const RANGE = "range";
+const JUMP = "jump";
 
 class Action {
   constructor(width, height, source){
@@ -29,6 +35,7 @@ class Action {
 
 // ***CHARACTER LIST***
 const LINK = "link";
+const SLIME = "slime";
 
 class Character {
   constructor(name, frameX, frameY, x, y, speed, actions){
@@ -37,18 +44,20 @@ class Character {
     this.name = name;
     this.frameX = frameX;
     this.frameY = frameY;
-    this.x = x;
+    this.x = x; //top left location of sprite use width/height to find center
     this.y = y;
     this.speed = speed;
     this.actions = actions;
     this.previousAction = this.actions.WALK_RIGHT;
+    
+    //Add all types of stats below (read from table)
   }
 
   draw(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
   }
 
-  animate(e){
+  animate(e){ //Screen refresh containing all screen animation
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     if(e.code == undefined){
@@ -113,6 +122,17 @@ class Character {
 }
 
 // Create actions for character
+// Slime
+let slimeidle = new Action('16','16','characters/slime/slime_idle_spritesheet.png');
+let slimemoveright = new Action('16','16','characters/slime/slime_run_right_spritesheet.png');
+let slimemoveleft = new Action('16','16','characters/slime/slime_run_left_spritesheet.png'); //flipped but should not make a difference visually
+let actions_slime  = {
+  IDLE: slimeidle,
+  WALK_RIGHT: slimemoveright,
+  WALK_LEFT: slimemoveleft
+
+};
+// Link
 let linkWalkLeft = new Action('36.4','32','characters/link/walking_master.png');
 let linkWalkRight = new Action('36.4','32','characters/link/walking_right.png');
 let linkWalkUp = new Action('36.4','32','characters/link/walking_master.png');
@@ -124,8 +144,9 @@ let actions_link  = {
   WALK_DOWN: linkWalkDown
 };
 
-// Create character
+// Create characters
 let link = new Character(LINK, 0, 0, 200, 100, 2, actions_link);
+let slime = new Character(SLIME, 0,0, 200, 200, 3, actions_slime);
 
 // On startup, show player on screen
 window.addEventListener('load', function(){
@@ -136,6 +157,33 @@ window.addEventListener('load', function(){
 document.addEventListener('keydown', function(event) {
   link.animate(event)
 });
+
+//May have to use setInterval to update enemy animations (REMOVE IF NOT WORKING)
+//window.requestAnimationFrame(gameLoop);
+
+function gameLoop(timeStamp){
+
+   animate_slime();
+
+      // Keep requesting new frames
+      window.requestAnimationFrame(gameLoop);
+}
+
+//window.onload = setInterval(animate_slime, 1000/7);
+
+
+function animate_slime(){
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  //this.draw(this.actions.WALK.img, this.actions.WALK.width * this.frameX, this.actions.WALK.height * this.frameY, this.actions.WALK.width, this.actions.WALK.height, this.x, this.y, this.actions.WALK.width, this.actions.WALK.height);
+
+  slime.draw(actions_slime.WALK_RIGHT.img, actions_slime.WALK_RIGHT.width * slime.frameX, actions_slime.WALK_RIGHT.height * slime.frameY, actions_slime.WALK_RIGHT.width, actions_slime.WALK_RIGHT.height, slime.x, slime.y, actions_slime.WALK_RIGHT.width, actions_slime.WALK_RIGHT.height);
+
+  if (slime.frameX < 5) slime.frameX++;
+  else slime.frameX = 0;
+
+  slime.x += slime.speed;
+
+}
 
 // On window resize, update canvas dimensions and maintain player position
 window.addEventListener('resize', function(){
