@@ -10,15 +10,17 @@ const ctx = canvas.getContext('2d');
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
+
 // ***ACTION LIST*** Add any new character actions here
-const WALK = "walk";
-const WALK_RIGHT = "walk right"; // Link specific
+const WALK_LEFT = "walk left";
+const WALK_RIGHT = "walk right";
+const WALK_UP = "walk up";
+const WALK_DOWN = "walk down";
 const RUN = "run";
 const IDLE = "idle";
 const MELEE = "melee";
 const RANGE = "range";
 const JUMP = "jump";
-
 
 class Action {
   constructor(width, height, source){
@@ -46,10 +48,9 @@ class Character {
     this.y = y;
     this.speed = speed;
     this.actions = actions;
-
-
+    this.previousAction = this.actions.WALK_RIGHT;
+    
     //Add all types of stats below (read from table)
-
   }
 
   draw(img, sX, sY, sW, sH, dX, dY, dW, dH) {
@@ -60,94 +61,92 @@ class Character {
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     if(e.code == undefined){
-      this.draw(this.actions.WALK.img, this.actions.WALK.width * this.frameX, this.actions.WALK.height * this.frameY, this.actions.WALK.width, this.actions.WALK.height, this.x, this.y, this.actions.WALK.width, this.actions.WALK.height);
+      this.draw(this.previousAction.img, this.previousAction.width * this.frameX, this.previousAction.height * this.frameY, this.previousAction.width, this.previousAction.height, this.x, this.y, this.previousAction.width, this.previousAction.height);
       return;
     }
 
-    switch(e.code) {
-        case "ArrowUp":
-          this.frameY = 0; //set up
+    else if(e.code == "ArrowUp"){
+      this.frameY = 0; //set up
 
-          if(this.y >= 0){
-            this.y -= this.speed;
-            if(this.frameX < 7) this.frameX++;
-            else this.frameX = 0;
-          }
-          else this.y = 0;
-
-          this.draw(this.actions.WALK.img, this.actions.WALK.width * this.frameX, this.actions.WALK.height * this.frameY, this.actions.WALK.width, this.actions.WALK.height, this.x, this.y, this.actions.WALK.width, this.actions.WALK.height);
-          break;
-
-        case "ArrowDown":
-          this.frameY = 2; //set down
-
-          if(this.y < canvas.height - this.actions.WALK.height)
-            this.y += this.speed;
-            if(this.frameX < 7)
-              this.frameX++;
-            else this.frameX = 0;
-
-          this.draw(this.actions.WALK.img, this.actions.WALK.width * this.frameX, this.actions.WALK.height * this.frameY, this.actions.WALK.width, this.actions.WALK.height, this.x, this.y, this.actions.WALK.width, this.actions.WALK.height);
-          break;
-
-        case "ArrowLeft":
-          this.frameY = 1; //set left
-
-          if(this.x >= 0)
-            this.x -= this.speed;
-            if(this.frameX < 7)
-              this.frameX++;
-            else this.frameX = 0;
-
-          this.draw(this.actions.WALK.img, this.actions.WALK.width * this.frameX, this.actions.WALK.height * this.frameY, this.actions.WALK.width, this.actions.WALK.height, this.x, this.y, this.actions.WALK.width, this.actions.WALK.height);
-          break;
-
-        case "ArrowRight":
-          this.frameY = 0; //set right
-
-          if(this.x < canvas.width - this.actions.WALK.width)
-            this.x += this.speed;
-            if(this.frameX < 7)
-              this.frameX++;
-            else this.frameX = 0;
-
-          if(this.actions.WALK_RIGHT === undefined){
-            this.draw(this.actions.WALK.img, this.actions.WALK.width * this.frameX, this.actions.WALK.height * this.frameY, this.actions.WALK.width, this.actions.WALK.height, this.x, this.y, this.actions.WALK.width, this.actions.WALK.height);
-          }
-          else {
-            this.draw(this.actions.WALK_RIGHT.img, this.actions.WALK_RIGHT.width * this.frameX, this.actions.WALK_RIGHT.height * this.frameY, this.actions.WALK_RIGHT.width, this.actions.WALK_RIGHT.height, this.x, this.y, this.actions.WALK_RIGHT.width, this.actions.WALK_RIGHT.height);
-          }
-          break;
+      if(this.y >= 0){ 
+        this.y -= this.speed;
+        if(this.frameX < 7) this.frameX++;
+        else this.frameX = 0;
+      }
+      else this.y = 0;
+      
+      this.draw(this.actions.WALK_UP.img, this.actions.WALK_UP.width * this.frameX, this.actions.WALK_UP.height * this.frameY, this.actions.WALK_UP.width, this.actions.WALK_UP.height, this.x, this.y, this.actions.WALK_UP.width, this.actions.WALK_UP.height);      
+      this.previousAction = this.actions.WALK_UP;
     }
+    
+    else if(e.code == "ArrowDown"){
+      this.frameY = 2; //set down
+
+      if(this.y < canvas.height - this.actions.WALK_DOWN.height)
+        this.y += this.speed;
+        if(this.frameX < 7)
+          this.frameX++;
+        else this.frameX = 0;
+
+      this.draw(this.actions.WALK_DOWN.img, this.actions.WALK_DOWN.width * this.frameX, this.actions.WALK_DOWN.height * this.frameY, this.actions.WALK_DOWN.width, this.actions.WALK_DOWN.height, this.x, this.y, this.actions.WALK_DOWN.width, this.actions.WALK_DOWN.height);
+      this.previousAction = this.actions.WALK_DOWN;
+    }
+    
+    else if(e.code == "ArrowLeft"){
+      this.frameY = 1; //set left
+
+      if(this.x >= 0)
+        this.x -= this.speed;
+        if(this.frameX < 7)
+          this.frameX++;
+        else this.frameX = 0;
+
+      this.draw(this.actions.WALK_LEFT.img, this.actions.WALK_LEFT.width * this.frameX, this.actions.WALK_LEFT.height * this.frameY, this.actions.WALK_LEFT.width, this.actions.WALK_LEFT.height, this.x, this.y, this.actions.WALK_LEFT.width, this.actions.WALK_LEFT.height);
+      this.previousAction = this.actions.WALK_LEFT;
+    }
+    
+    else if(e.code == "ArrowRight"){
+      this.frameY = 0; //set right
+
+      if(this.x < canvas.width - this.actions.WALK_RIGHT.width)
+        this.x += this.speed;
+        if(this.frameX < 7)
+          this.frameX++;
+        else this.frameX = 0;
+
+      this.draw(this.actions.WALK_RIGHT.img, this.actions.WALK_RIGHT.width * this.frameX, this.actions.WALK_RIGHT.height * this.frameY, this.actions.WALK_RIGHT.width, this.actions.WALK_RIGHT.height, this.x, this.y, this.actions.WALK_RIGHT.width, this.actions.WALK_RIGHT.height);
+      this.previousAction = this.actions.WALK_RIGHT;
+    }
+
   }
 }
 
 // Create actions for character
-let linkWalk = new Action('36.4','32','characters/link/walking_master.png');
-let linkWalkRight = new Action('36.4','32','characters/link/walking_right.png');
-
-// Slime bitch
+// Slime
 let slimeidle = new Action('16','16','characters/slime/slime_idle_spritesheet.png');
 let slimemoveright = new Action('16','16','characters/slime/slime_run_right_spritesheet.png');
 let slimemoveleft = new Action('16','16','characters/slime/slime_run_left_spritesheet.png'); //flipped but should not make a difference visually
-
-
-let actions  = {
-  WALK: linkWalk,
-  WALK_RIGHT: linkWalkRight
-
-};
-
 let actions_slime  = {
   IDLE: slimeidle,
   WALK_RIGHT: slimemoveright,
   WALK_LEFT: slimemoveleft
 
 };
+// Link
+let linkWalkLeft = new Action('36.4','32','characters/link/walking_master.png');
+let linkWalkRight = new Action('36.4','32','characters/link/walking_right.png');
+let linkWalkUp = new Action('36.4','32','characters/link/walking_master.png');
+let linkWalkDown = new Action('36.4','32','characters/link/walking_master.png');
+let actions_link  = {
+  WALK_LEFT: linkWalkLeft,
+  WALK_RIGHT: linkWalkRight,
+  WALK_UP: linkWalkUp,
+  WALK_DOWN: linkWalkDown
+};
 
-// Create character
-let link = new Character(LINK, 0, 0, 200, 100, 2, actions);
-let slime = new Character(SLIME, 0,0, 200, 200, 3, actions);
+// Create characters
+let link = new Character(LINK, 0, 0, 200, 100, 2, actions_link);
+let slime = new Character(SLIME, 0,0, 200, 200, 3, actions_slime);
 
 // On startup, show player on screen
 window.addEventListener('load', function(){
@@ -185,9 +184,6 @@ function animate_slime(){
   slime.x += slime.speed;
 
 }
-
-
-//
 
 // On window resize, update canvas dimensions and maintain player position
 window.addEventListener('resize', function(){
