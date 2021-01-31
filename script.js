@@ -62,11 +62,8 @@ class Character {
       this.draw(this.previousAction.img, this.previousAction.width * this.frameX, this.previousAction.height * this.frameY, this.previousAction.width, this.previousAction.height, this.x, this.y, this.previousAction.width, this.previousAction.height);
       return;
     }
+    
     else if(e.code == "ArrowUp"){
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
       this.frameY = 0; //set up
 
       if(this.y >= 0){
@@ -84,14 +81,8 @@ class Character {
         this.draw(this.previousAction.img, this.previousAction.width * this.frameX, this.previousAction.height * this.frameY, this.previousAction.width, this.previousAction.height, this.x, this.y, this.previousAction.width, this.previousAction.height);
       }
     }
-<<<<<<< Updated upstream
 
-    else if(e.code == "ArrowDown"){
-
-=======
-    
     else if(e.code == "ArrowDown"){   
->>>>>>> Stashed changes
       this.frameY = 2; //set down
 
       try {
@@ -152,7 +143,6 @@ class Character {
     }
 
     else if(e.code == "Space"){
-
       var i;
       for(i = 0 ; i < 4 ; i++) {
         this.frameY = 0; //set right
@@ -173,12 +163,6 @@ class Character {
 
       }
     }
-
-
-
-
-
-
 
   }
 }
@@ -218,8 +202,9 @@ window.addEventListener('resize', function(){
   canvas.height = window.innerHeight;
   canvas.width = window.innerWidth;
 
-  link.animate(window.event)
-})
+  link.animate(window.event);
+  slime.animate(window.event);
+});
 
 // On startup, show player on screen
 window.addEventListener('load', function(){
@@ -240,13 +225,8 @@ function gameLoop(timeStamp){
 
   // Get event for each character
   playerEvent = keys.pop();
-<<<<<<< Updated upstream
-  enemyEvent = smartAction(link.previousAction, link.x, link.y, slime.x, slime.y);
-
-=======
   enemyEvent = DFS(link.previousAction, link.x, link.y, slime.x, slime.y);
   
->>>>>>> Stashed changes
   slime.animate(enemyEvent);
   link.animate(playerEvent);
 
