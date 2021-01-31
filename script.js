@@ -62,9 +62,11 @@ class Character {
       this.draw(this.previousAction.img, this.previousAction.width * this.frameX, this.previousAction.height * this.frameY, this.previousAction.width, this.previousAction.height, this.x, this.y, this.previousAction.width, this.previousAction.height);
       return;
     }
-
     else if(e.code == "ArrowUp"){
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       this.frameY = 0; //set up
 
       if(this.y >= 0){
@@ -82,10 +84,16 @@ class Character {
         this.draw(this.previousAction.img, this.previousAction.width * this.frameX, this.previousAction.height * this.frameY, this.previousAction.width, this.previousAction.height, this.x, this.y, this.previousAction.width, this.previousAction.height);
       }
     }
+<<<<<<< Updated upstream
 
     else if(e.code == "ArrowDown"){
 
+=======
+    
+    else if(e.code == "ArrowDown"){   
+>>>>>>> Stashed changes
       this.frameY = 2; //set down
+
       try {
         if(this.y < canvas.height - this.actions.WALK_DOWN.height)
           this.y += this.speed;
@@ -108,7 +116,6 @@ class Character {
     }
 
     else if(e.code == "ArrowLeft"){
-
       this.frameY = 1; //set left
 
       if(this.x >= 0)
@@ -127,7 +134,6 @@ class Character {
     }
 
     else if(e.code == "ArrowRight"){
-
       this.frameY = 0; //set right
 
       if(this.x < canvas.width - this.actions.WALK_RIGHT.width)
@@ -234,8 +240,13 @@ function gameLoop(timeStamp){
 
   // Get event for each character
   playerEvent = keys.pop();
+<<<<<<< Updated upstream
   enemyEvent = smartAction(link.previousAction, link.x, link.y, slime.x, slime.y);
 
+=======
+  enemyEvent = DFS(link.previousAction, link.x, link.y, slime.x, slime.y);
+  
+>>>>>>> Stashed changes
   slime.animate(enemyEvent);
   link.animate(playerEvent);
 
@@ -244,9 +255,10 @@ function gameLoop(timeStamp){
 }
 
 // Calculates intelligent enemy action
-function smartAction(playerPrevAction, playerX, playerY, currX, currY){
+function DFS(playerPrevAction, playerX, playerY, currX, currY){
+  code = "ArrowRight";
   let event = {
-    "code": "ArrowRight"
+    "code": code
   };
   return event;
 }
