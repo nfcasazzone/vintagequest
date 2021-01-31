@@ -190,6 +190,7 @@ window.addEventListener('resize', function(){
 // On startup, show player on screen
 window.addEventListener('load', function(){
   link.animate(window.event);
+  slime.animate(window.event);
 });
 
 // On keystroke, perform player action
@@ -209,8 +210,6 @@ function gameLoop(timeStamp){
 //window.onload = setInterval(animate_slime, 1000/7);
 
 function animate_slime(){
-  //this.draw(this.actions.WALK.img, this.actions.WALK.width * this.frameX, this.actions.WALK.height * this.frameY, this.actions.WALK.width, this.actions.WALK.height, this.x, this.y, this.actions.WALK.width, this.actions.WALK.height);
-
   slime.draw(actions_slime.WALK_RIGHT.img, actions_slime.WALK_RIGHT.width * slime.frameX, actions_slime.WALK_RIGHT.height * slime.frameY, actions_slime.WALK_RIGHT.width, actions_slime.WALK_RIGHT.height, slime.x, slime.y, actions_slime.WALK_RIGHT.width, actions_slime.WALK_RIGHT.height);
 
   if (slime.frameX < 5) slime.frameX++;
