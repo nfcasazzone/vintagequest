@@ -58,13 +58,12 @@ class Character {
   }
 
   animate(e){ //Screen refresh containing all screen animation
-    if(e.code == undefined){
+    if(e == undefined){
       this.draw(this.previousAction.img, this.previousAction.width * this.frameX, this.previousAction.height * this.frameY, this.previousAction.width, this.previousAction.height, this.x, this.y, this.previousAction.width, this.previousAction.height);
       return;
     }
 
     else if(e.code == "ArrowUp"){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
       
       this.frameY = 0; //set up
 
@@ -85,7 +84,6 @@ class Character {
     }
     
     else if(e.code == "ArrowDown"){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
       
       this.frameY = 2; //set down
       try {
@@ -110,7 +108,6 @@ class Character {
     }
     
     else if(e.code == "ArrowLeft"){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
 
       this.frameY = 1; //set left
 
@@ -130,7 +127,6 @@ class Character {
     }
     
     else if(e.code == "ArrowRight"){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
 
       this.frameY = 0; //set right
 
@@ -194,27 +190,31 @@ window.addEventListener('load', function(){
 });
 
 // On keystroke, perform player action
+let keys = [];
 window.addEventListener('keydown', function(event) {
-  link.animate(event);
+  keys.push(event);
 });
 
 // Create a game loop for enemies to move in 
 window.requestAnimationFrame(gameLoop);
 function gameLoop(timeStamp){
-  animate_slime();
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  
+  // Get event for each character
+  playerEvent = keys.pop();
+  enemyEvent = smartAction(link.previousAction, link.x, link.y, slime.x, slime.y);
+  
+  slime.animate(enemyEvent);
+  link.animate(playerEvent);
 
   // Keep requesting new frames
   window.requestAnimationFrame(gameLoop);
 }
 
-//window.onload = setInterval(animate_slime, 1000/7);
-
-function animate_slime(){
-  slime.draw(actions_slime.WALK_RIGHT.img, actions_slime.WALK_RIGHT.width * slime.frameX, actions_slime.WALK_RIGHT.height * slime.frameY, actions_slime.WALK_RIGHT.width, actions_slime.WALK_RIGHT.height, slime.x, slime.y, actions_slime.WALK_RIGHT.width, actions_slime.WALK_RIGHT.height);
-
-  if (slime.frameX < 5) slime.frameX++;
-  else slime.frameX = 0;
-
-  slime.x += slime.speed;
-
+// Calculates intelligent enemy action
+function smartAction(playerPrevAction, playerX, playerY, currX, currY){
+  let event = {
+    "code": "ArrowRight"
+  };
+  return event;
 }
