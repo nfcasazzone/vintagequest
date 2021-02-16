@@ -144,12 +144,12 @@ class Character {
 
     else if(e.code == "Space"){
       var i;
-      for(i = 0 ; i < 4 ; i++) {
+      for(i = 0 ; i < 3 ; i++) {
         this.frameY = 0; //set right
 
         if(this.x < canvas.width - this.actions.MELEE_LEFT.width)
           this.x += 0;
-          if(this.frameX < 4)
+          if(this.frameX < 3)
             this.frameX++;
             else this.frameX = 0;
 
