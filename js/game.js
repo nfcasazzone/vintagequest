@@ -32,7 +32,15 @@ var game = {
 
         // add our player entity in the entity pool
         me.pool.register("knight", game.PlayerEntity);
-        me.pool.register("Enemies", game.EnemyEntity);
+        me.pool.register("slime1", game.EnemyEntity);
+        me.pool.register("slime2", game.EnemyEntity);
+        me.pool.register("slime3", game.EnemyEntity);
+        me.pool.register("slime4", game.EnemyEntity);
+        me.pool.register("slime5", game.EnemyEntity);
+        me.pool.register("slime6", game.EnemyEntity);
+        me.pool.register("slime7", game.EnemyEntity);
+        me.pool.register("slime8", game.EnemyEntity);
+        me.pool.register("slime9", game.EnemyEntity);
         
         // enable the keyboard
         me.input.bindKey(me.input.KEY.LEFT,  "left");
